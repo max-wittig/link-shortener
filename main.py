@@ -17,9 +17,10 @@ def index():
         code_url = link_shortener.get_code_url(request.form['url'], hostname)
         return render_template('short_link.html', code_url=code_url)
 
+
 @app.route('/link/<code>')
 def link(code):
     return redirect(link_shortener.get_url(code))
 
 if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0", port=link_shortener.port)
+    app.run(debug=False, host="0.0.0.0", port=link_shortener.port)
