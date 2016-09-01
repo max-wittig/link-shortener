@@ -6,7 +6,7 @@ class LinkShortener:
         self.url_dict = dict()
         self.link_length = 10
         self.link_dir = "/link/"
-        self.port = "5000"
+        self.port = 5000
 
     def get_generated_code(self):
         identifier = str(uuid.uuid4()).replace("-", "")
@@ -20,14 +20,13 @@ class LinkShortener:
             return new_url
 
     def get_code(self, url):
+        url = self.add_http_before_url(url)
         if self.url_dict.get(url) is None:
-            url = self.add_http_before_url(url)
-            print(url)
             self.url_dict[url] = self.get_generated_code()
-        return self.url_dict[url]
+        return self.url_dict.get(url)
 
     def get_code_url(self, url, hostname):
-        return hostname + ":" + self.port + self.link_dir + self.get_code(url)
+        return hostname + ":" + str(self.port) + self.link_dir + self.get_code(url)
 
     def get_url(self, code):
         for key, value in self.url_dict.items():

@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, request
+from flask import Flask, redirect, url_for, request, render_template
 from link_shortener import *
 from urllib.parse import urlparse
 
@@ -14,9 +14,8 @@ def index():
     else:
         url = urlparse(request.url)
         hostname = url.hostname
-        port = url.port
-        return link_shortener.get_code_url(request.form['url'], hostname)
-
+        code_url = link_shortener.get_code_url(request.form['url'], hostname)
+        return render_template('short_link.html', code_url=code_url)
 
 @app.route('/link/<code>')
 def link(code):
