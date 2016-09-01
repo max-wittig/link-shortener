@@ -5,8 +5,13 @@ class LinkShortener():
     def __init__(self):
         self.url_dict = dict()
         self.link_length = 10
-        self.domain = "127.0.0.1:5000"
+        self.domain = ""
         self.link_dir = "/link/"
+        self.get_domain()
+
+    def get_domain(self):
+        with open("domain.txt", "r") as f:
+            self.domain = f.read()
 
     def get_generated_code(self):
         identifier = str(uuid.uuid4()).replace("-", "")

@@ -1,3 +1,6 @@
 
 /LinkShortener.iml
 /.idea/
+__pycache__/
+templates/
+/domain.txt
