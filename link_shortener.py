@@ -1,17 +1,12 @@
 import uuid
 
 
-class LinkShortener():
+class LinkShortener:
     def __init__(self):
         self.url_dict = dict()
         self.link_length = 10
-        self.domain = ""
         self.link_dir = "/link/"
-        self.get_domain()
-
-    def get_domain(self):
-        with open("domain.txt", "r") as f:
-            self.domain = f.read()
+        self.port = "5000"
 
     def get_generated_code(self):
         identifier = str(uuid.uuid4()).replace("-", "")
@@ -31,8 +26,8 @@ class LinkShortener():
             self.url_dict[url] = self.get_generated_code()
         return self.url_dict[url]
 
-    def get_code_url(self, url):
-        return self.domain + self.link_dir + self.get_code(url)
+    def get_code_url(self, url, hostname):
+        return hostname + ":" + self.port + self.link_dir + self.get_code(url)
 
     def get_url(self, code):
         for key, value in self.url_dict.items():
