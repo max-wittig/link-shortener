@@ -2,6 +2,12 @@
 
 Shorts or links. This is an old proof of concept
 
+# docker usage
+
+```bash
+  docker run -p 5000:5000 maxwittig/link_shortener
+```
+
 ## installation
 
 * Install python virtualenv

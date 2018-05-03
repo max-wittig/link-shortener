@@ -12,5 +12,5 @@ COPY . .
 RUN chown -R link_shortener:link_shortener .
 
 USER link_shortener
-EXPOSE 4000
+EXPOSE 5000
 ENTRYPOINT ["venv/bin/python3", "__main__.py"]
