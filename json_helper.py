@@ -8,7 +8,7 @@ class JsonHelper:
 
     def get_json(self):
         if os.path.isfile(self.filename):
-            with open(self.filename) as f:
+            with open(self.filename, "r") as f:
                 return json.load(f)
 
     def save(self, url_dict):

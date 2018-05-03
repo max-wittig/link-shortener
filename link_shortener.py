@@ -1,5 +1,6 @@
 from json_helper import JsonHelper
 import uuid
+import os
 
 
 class LinkShortener:
@@ -8,7 +9,7 @@ class LinkShortener:
         self.json_helper = JsonHelper("short_links.json")
         self.link_length = 10
         self.link_dir = "/link/"
-        self.port = 5000
+        self.port = os.getenv("PORT", 5000)
         self.load_from_file()
 
     def load_from_file(self):

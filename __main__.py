@@ -22,5 +22,6 @@ def index():
 def link(code):
     return redirect(link_shortener.get_url(code))
 
+
 if __name__ == '__main__':
     app.run(debug=False, host="0.0.0.0", port=link_shortener.port)
