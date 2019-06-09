@@ -29,7 +29,7 @@ Shorts or links. This is an old proof of concept
 
 * Start the server
   ```bash
-  python3 __main__.py
+  BASE_URL=https://your-url python3 __main__.py
   ```
 
 * Goto localhost:5000 to see the result

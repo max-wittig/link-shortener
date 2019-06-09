@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.7
 
 WORKDIR /opt/link_shortener
 RUN useradd -ms /bin/sh link_shortener
