@@ -1,4 +1,5 @@
 from json_helper import JsonHelper
+import urllib.parse
 import uuid
 import os
 
@@ -8,7 +9,6 @@ class LinkShortener:
         self.url_dict = dict()
         self.json_helper = JsonHelper("short_links.json")
         self.link_length = 10
-        self.link_dir = "/link/"
         self.port = os.getenv("PORT", 5000)
         self.load_from_file()
 
@@ -22,7 +22,7 @@ class LinkShortener:
 
     def get_generated_code(self):
         identifier = str(uuid.uuid4()).replace("-", "")
-        return identifier[0:self.link_length]
+        return identifier[0 : self.link_length]
 
     def add_http_before_url(self, url):
         if str(url).startswith("http://") or str(url).startswith("https://"):
@@ -33,13 +33,18 @@ class LinkShortener:
 
     def get_code(self, url):
         url = self.add_http_before_url(url)
-        if self.url_dict.get(url) is None:
+        if not self.url_dict.get(url):
             self.url_dict[url] = self.get_generated_code()
             self.save_to_file()
         return self.url_dict.get(url)
 
-    def get_code_url(self, url, hostname):
-        return hostname + ":" + str(self.port) + self.link_dir + self.get_code(url)
+    def get_code_url(self, url, base_url, to_shorten_url):
+        return (
+            self.add_http_before_url(url)
+            + base_url
+            + "/link/"
+            + self.get_code(to_shorten_url)
+        )
 
     def get_url(self, code):
         for key, value in self.url_dict.items():

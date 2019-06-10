@@ -7,6 +7,7 @@ import os
 app = Flask(__name__)
 BASE_URL = os.getenv("BASE_URL") or "/"
 
+
 class ReverseProxied(object):
     """Wrap the application in this middleware and configure the
     front-end server to add these headers, to let you quietly bind
@@ -32,32 +33,33 @@ class ReverseProxied(object):
             environ["SCRIPT_NAME"] = script_name
             path_info = environ["PATH_INFO"]
             if path_info.startswith(script_name):
-                environ["PATH_INFO"] = path_info[len(script_name):]
+                environ["PATH_INFO"] = path_info[len(script_name) :]
 
         scheme = environ.get("HTTP_X_SCHEME", "")
         if scheme:
             environ["wsgi.url_scheme"] = scheme
         return self.app(environ, start_response)
 
+
 link_shortener = LinkShortener()
 
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route("/", methods=["POST", "GET"])
 def index():
-    if request.method == 'GET':
+    if request.method == "GET":
         return render_template("index.html", link_index=BASE_URL)
     else:
         url = urlparse(request.url)
-        hostname = url.hostname
-        code_url = link_shortener.get_code_url(request.form['url'], hostname)
-        return render_template('short_link.html', code_url=code_url)
+        hostname = url.netloc
+        code_url = link_shortener.get_code_url(hostname, BASE_URL, request.form["url"])
+        return render_template("short_link.html", code_url=code_url)
 
 
-@app.route('/link/<code>')
+@app.route("/link/<code>")
 def link(code):
     return redirect(link_shortener.get_url(code))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.wsgi_app = ReverseProxied(app.wsgi_app)
     app.run(debug=False, host="0.0.0.0", port=link_shortener.port)
