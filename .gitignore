@@ -5,3 +5,4 @@ __pycache__/
 venv/
 /link_shortener.iml
 /short_links.json
+link-cache/

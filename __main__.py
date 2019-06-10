@@ -1,11 +1,13 @@
+#!/usr/bin/env python3
+
 from flask import Flask, redirect, url_for, request, render_template
-from link_shortener import *
+from link_shortener import LinkShortener
 from urllib.parse import urlparse
 import os
 
 
 app = Flask(__name__)
-BASE_URL = os.getenv("BASE_URL")
+BASE_URL = os.getenv("BASE_URL") or "/"
 
 
 class ReverseProxied(object):
