@@ -13,4 +13,4 @@ class JsonHelper:
 
     def save(self, url_dict):
         with open(self.filename, "w") as f:
-            f.write(json.dumps(url_dict))
+            f.write(json.dumps(url_dict, indent=2))
