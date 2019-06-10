@@ -1,9 +1,11 @@
 from flask import Flask, redirect, url_for, request, render_template
 from link_shortener import *
 from urllib.parse import urlparse
+import os
 
 
 app = Flask(__name__)
+BASE_URL = os.getenv("BASE_URL") or "/"
 
 class ReverseProxied(object):
     """Wrap the application in this middleware and configure the
@@ -43,7 +45,7 @@ link_shortener = LinkShortener()
 @app.route('/', methods=['POST', 'GET'])
 def index():
     if request.method == 'GET':
-        return redirect(url_for('static', filename="index.html"))
+        return render_template("index.html", link_index=BASE_URL)
     else:
         url = urlparse(request.url)
         hostname = url.hostname
