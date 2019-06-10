@@ -5,7 +5,7 @@ import os
 
 
 app = Flask(__name__)
-BASE_URL = os.getenv("BASE_URL") or "/"
+BASE_URL = os.getenv("BASE_URL")
 
 
 class ReverseProxied(object):
@@ -49,9 +49,7 @@ def index():
     if request.method == "GET":
         return render_template("index.html", link_index=BASE_URL)
     else:
-        url = urlparse(request.url)
-        hostname = url.netloc
-        code_url = link_shortener.get_code_url(hostname, BASE_URL, request.form["url"])
+        code_url = link_shortener.get_code_url(request.url, request.form["url"])
         return render_template("short_link.html", code_url=code_url)
 
 

@@ -38,10 +38,9 @@ class LinkShortener:
             self.save_to_file()
         return self.url_dict.get(url)
 
-    def get_code_url(self, url, base_url, to_shorten_url):
+    def get_code_url(self, url, to_shorten_url):
         return (
-            self.add_http_before_url(url)
-            + base_url
+            self.add_http_before_url(str(url).strip("/"))
             + "/link/"
             + self.get_code(to_shorten_url)
         )
