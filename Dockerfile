@@ -1,6 +1,6 @@
 FROM python:3.7
 
-WORKDIR /opt/link_shortener
+WORKDIR /opt/link-shortener
 
 COPY Pipfile Pipfile.lock ./
 RUN pip3 install pipenv && pipenv install --deploy
